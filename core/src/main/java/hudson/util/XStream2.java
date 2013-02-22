@@ -365,7 +365,7 @@ public class XStream2 extends XStream {
         private PluginManager pm;
 
         @SuppressWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // classOwnership checked for null so why does FB complain?
-        @Override public String ownerOf(Class<?> clazz) {
+        public String ownerOf(Class<?> clazz) {
             if (classOwnership != null) {
                 return classOwnership.ownerOf(clazz);
             }

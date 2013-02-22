@@ -31,6 +31,7 @@ import hudson.CopyOnWrite;
 import hudson.ExtensionList;
 import hudson.ExtensionPoint;
 import hudson.Util;
+import hudson.UtilCustom;
 import hudson.XmlFile;
 import hudson.init.Initializer;
 import static hudson.init.InitMilestone.JOB_LOADED;
@@ -166,6 +167,18 @@ public class Queue extends ResourceController implements Saveable {
     private final ItemList<BuildableItem> pendings = new ItemList<BuildableItem>();
 
     private final CachedItemList itemsView = new CachedItemList();
+    
+    public Set<WaitingItem> getWaitingList() {
+        return waitingList;                                                  
+    }     
+
+    public ItemList<BlockedItem> getBlockedProjects() {
+        return blockedProjects;                                              
+    }   
+
+    public Map<Executor,JobOffer> getParked() {
+        return parked;                                                       
+    }    
 
     /**
      * Maintains a copy of {@link Queue#getItems()}
@@ -223,6 +236,10 @@ public class Queue extends ResourceController implements Saveable {
          * (Or null, in which case event is used to trigger a queue maintenance.)
          */
         private WorkUnit workUnit;
+        
+        public WorkUnit getWorkUnit() {
+            return workUnit;                                             
+        } 
 
         private JobOffer(Executor executor) {
             this.executor = executor;
@@ -839,6 +856,8 @@ public class Queue extends ResourceController implements Saveable {
      * This method blocks until a next project becomes buildable.
      */
     public synchronized WorkUnit pop() throws InterruptedException {
+    	LOGGER.info("pop (start):\n" + UtilCustom.getInfo() + "\n");
+    	
         final Executor exec = Executor.currentExecutor();
 
         if (exec instanceof OneOffExecutor) {
@@ -908,6 +927,7 @@ public class Queue extends ResourceController implements Saveable {
             // we'll just run a pointless maintenance, and that's
             // fine.
             scheduleMaintenance();
+            LOGGER.info("pop (end):\n" + UtilCustom.getInfo() + "\n");
         }
     }
 
@@ -977,6 +997,8 @@ public class Queue extends ResourceController implements Saveable {
         if (LOGGER.isLoggable(Level.FINE))
             LOGGER.fine("Queue maintenance started " + this);
 
+        LOGGER.info("Maintain (start):\n" + UtilCustom.getInfo() + "\n");
+        
         {// blocked -> buildable
             Iterator<BlockedItem> itr = blockedProjects.values().iterator();
             while (itr.hasNext()) {
@@ -1048,6 +1070,8 @@ public class Queue extends ResourceController implements Saveable {
             if (!wuc.getWorkUnits().isEmpty())
                 pendings.add(p);
         }
+        
+        LOGGER.info("Maintain (end):\n" + UtilCustom.getInfo() + "\n");
     }
 
     private void makeBuildable(BuildableItem p) {
