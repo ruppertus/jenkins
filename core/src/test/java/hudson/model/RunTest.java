@@ -45,14 +45,14 @@ public class RunTest {
             ExecutorService svc = Executors.newSingleThreadExecutor();
             try {
                 r = svc.submit(new Callable<Run>() {
-                    @Override public Run call() throws Exception {
+                    public Run call() throws Exception {
                         return new Run(new StubJob(), 1234567890) {};
                     }
                 }).get();
                 TimeZone.setDefault(TimeZone.getTimeZone("America/Los_Angeles"));
                 id = r.getId();
                 assertEquals(id, svc.submit(new Callable<String>() {
-                    @Override public String call() throws Exception {
+                    public String call() throws Exception {
                         return r.getId();
                     }
                 }).get());
@@ -64,7 +64,6 @@ public class RunTest {
             try {
                 assertEquals(id, r.getId());
                 assertEquals(id, svc.submit(new Callable<String>() {
-                    @Override
                     public String call() throws Exception {
                         return r.getId();
                     }

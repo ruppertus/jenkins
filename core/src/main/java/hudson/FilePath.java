@@ -895,7 +895,6 @@ public final class FilePath implements Serializable {
             this.callable = callable;
         }
 
-        @Override
         public final ClassLoader getClassLoader() {
             return callable.getClassLoader();
         }
