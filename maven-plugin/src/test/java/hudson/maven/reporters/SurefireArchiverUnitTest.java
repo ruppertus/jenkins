@@ -208,13 +208,11 @@ public class SurefireArchiverUnitTest {
             this.build = build;
         }
 
-        @Override
         public <V, T extends Throwable> V execute(BuildCallable<V, T> program)
                 throws T, IOException, InterruptedException {
             return program.call(build);
         }
 
-        @Override
         public void executeAsync(BuildCallable<?, ?> program)
                 throws IOException {
             try {
@@ -224,62 +222,49 @@ public class SurefireArchiverUnitTest {
             }
         }
 
-        @Override
         public FilePath getRootDir() {
             return null;
         }
 
-        @Override
         public FilePath getProjectRootDir() {
             return null;
         }
 
-        @Override
         public FilePath getModuleSetRootDir() {
             return null;
         }
 
-        @Override
         public FilePath getArtifactsDir() {
             return null;
         }
 
-        @Override
         public void setResult(Result result) {
         }
 
-        @Override
         public Calendar getTimestamp() {
             return null;
         }
 
-        @Override
         public long getMilliSecsSinceBuildStart() {
             return 0;
         }
 
-        @Override
         public boolean isArchivingDisabled() {
             return false;
         }
 
-        @Override
         public void registerAsProjectAction(MavenReporter reporter) {
         }
 
-        @Override
         public void registerAsProjectAction(MavenProjectActionBuilder builder) {
         }
 
-        @Override
         public void registerAsAggregatedProjectAction(MavenReporter reporter) {
         }
 
-        @Override
         public void setExecutedMojos(List<ExecutedMojo> executedMojos) {
         }
 
-        @Override
         public MavenBuildInformation getMavenBuildInformation() {
             return null;
         }
@@ -289,45 +274,36 @@ public class SurefireArchiverUnitTest {
 
         private static final long serialVersionUID = 1L;
 
-        @Override
         public PrintStream getLogger() {
             return new PrintStream(new NullOutputStream());
         }
 
         @SuppressWarnings("rawtypes")
-        @Override
         public void annotate(ConsoleNote ann) throws IOException {
         }
 
-        @Override
         public void hyperlink(String url, String text) throws IOException {
         }
 
-        @Override
         public PrintWriter error(String msg) {
             return null;
         }
 
-        @Override
         public PrintWriter error(String format, Object... args) {
             return null;
         }
 
-        @Override
         public PrintWriter fatalError(String msg) {
             return null;
         }
 
-        @Override
         public PrintWriter fatalError(String format, Object... args) {
             return null;
         }
 
-        @Override
         public void started(List<Cause> causes) {
         }
 
-        @Override
         public void finished(Result result) {
         }
         

@@ -136,7 +136,6 @@ public class SurefireArchiver extends TestFailureDetector {
                 
                 // filter all the already parsed files:
                 fileSet = Iterables.filter(fileSet, new Predicate<File>() {
-                    @Override
                     public boolean apply(File input) {
                         return !parsedFiles.containsKey(input);
                     }
@@ -260,11 +259,9 @@ public class SurefireArchiver extends TestFailureDetector {
             this.to = to + 2000;
         }
 
-        @Override
         public Iterator<File> iterator() {
             
             Predicate<File> fileWithinFromAndTo = new Predicate<File>() {
-                @Override
                 public boolean apply(File file) {
                     long lastModified = file.lastModified();
                     if (lastModified>=from && lastModified<=to) {
@@ -278,7 +275,6 @@ public class SurefireArchiver extends TestFailureDetector {
                     Iterators.transform(
                         Iterators.forArray(reportFiles),
                         new Function<String, File>() {
-                            @Override
                             public File apply(String file) {
                                 return getFile(reportsDir,file);
                             }

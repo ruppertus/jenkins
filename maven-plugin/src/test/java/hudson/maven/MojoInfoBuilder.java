@@ -72,12 +72,10 @@ public class MojoInfoBuilder {
         }
         
         ExpressionEvaluator evaluator = new ExpressionEvaluator() {
-            @Override
             public Object evaluate(String expression) {
                 return expression;
             }
             
-            @Override
             public File alignToBaseDirectory(File file) {
                 return file;
             }

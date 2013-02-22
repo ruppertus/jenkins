@@ -130,7 +130,6 @@ enum TestMojo {
                 return Iterators.transform(
                     Iterators.forArray(includedFiles),
                     new Function<String, File>() {
-                        @Override
                         public File apply(String file) {
                             return new File(baseDir,file);
                         }
